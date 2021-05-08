@@ -1,0 +1,32 @@
+{
+  "name": "memorylab",
+  "version": "1.0.0",
+  "description": "Visualize and simulate memory allocation",
+  "main": "main.js",
+  "scripts": {
+    "test": "test",
+    "start": "electron .",
+    "dist": "electron-builder",
+    "distexe": "electron-builder build --win portable"
+  },
+  "author": "Franklin Madrid",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^11.3.0",
+    "electron-builder": "^22.10.5"
+  },
+  "build": {
+    "appId": "com.electron.app",
+    "win": {
+      "target": "portable"
+    },
+    "portable": {
+      "unicode": false,
+      "artifactName": "my_electron_app.exe"
+    }
+  },
+  "dependencies": {
+    "d3": "^6.5.0",
+    "jquery": "^3.5.1"
+  }
+}

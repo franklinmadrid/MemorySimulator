@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Import Jquery and d3js libraries-->
+    <script src="./node_modules/jquery/dist/jquery.min.js" onload="window.$ = window.jQuery = module.exports;"></script>
+    <script src="./d3.min.js"></script>
+    <meta charset="UTF-8">
+    <title>Memory simulator</title>
+    <link rel="stylesheet" href='bootstrap.min.css'>
+    <!-- Style of tables-->
+    <style>
+        table, th, td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body style="margin-left: 10px">
+<!-- form with initial values to fill: partition type, mem size, allocation scheme, starting address, etc...-->
+<form id="initialInputs" style="margin-bottom: 10px" >
+    <h1> Memory Simulator</h1>
+    <div>
+        <label for="memorySize">Memory Size</label>
+        <input type="number" id="memorySize" size="5" required>
+    </div>
+    <div>
+        <label for="startingAddress">Starting Address</label>
+        <input type="number" id="startingAddress" size="5" required>
+    </div>
+    <div>
+        <label for="allocationScheme">Allocation Scheme</label>
+        <select id="allocationScheme">
+            <option value="First-Fit">First-Fit</option>
+            <option value="Best-Fit">Best-Fit</option>
+            <option value="Worst-Fit">Worst-Fit</option>
+            <option value="Next-Fit">Next-Fit</option>
+        </select>
+    </div>
+    <div>
+        <label for="partitionType">Partition Type</label>
+        <select id="partitionType" value="Fixed">
+            <option value="Fixed">Fixed</option>
+            <option value="Dynamic">Dynamic</option>
+        </select>
+    </div>
+    <button type="submit" id="goBtn">Go</button>
+    <button type="reset" id="resetBtn">Reset</button>
+</form>
+<!-- forms for dynamically displaying and processing data-->
+<form id="addPartitions" style="margin-bottom: 10px">
+    <div id="partitions">
+        <label for="partitionSize">Partition Size</label>
+        <input type="number" id="partitionSize" size="10">  <button type="submit" id="addPartitionBtn">Add</button>
+    </div>
+</form>
+<form id="addJob">
+    <label for="jobSize">Job size</label>
+    <input type="number" id="jobSize" size="10"> <button type="submit" id="addJobBtn">Add</button>
+</form>
+<form id="removeJob" style="margin-bottom: 10px">
+    <label for="removeJobList">Remove Job</label>
+    <select id="removeJobList">
+
+    </select> <button type="submit" id="removeJobBtn">Remove</button>
+</form>
+<div id="totalFrag">
+    Total Fragmentation: 0
+</div>
+<!-- two containers side by side. Left shows job queue and table. Right shows partition graph-->
+<div style="width: 100%; overflow: hidden;">
+    <div style="width: 300px; float: left;">
+        <div id="queue">
+            <h5>Job Queue</h5>
+            <table id=" queueTable">
+                <thead>
+                <tr>
+                    <th>Job Size</th>
+                    <th>Job ID</th>
+                </tr>
+                </thead>
+                <tbody id="tbodyQueue"></tbody>
+            </table>
+        </div>
+        <div id="fixedTable">
+            <h5>Fixed Table</h5>
+            <table id=" fixedPTable">
+                <thead>
+                <tr>
+                    <th>Partition Size</th>
+                    <th>Memory Address</th>
+                    <th>Access</th>
+                    <th>Partition Status</th>
+                </tr>
+                </thead>
+                <tbody id="tbodyFixed"></tbody>
+            </table>
+        </div>
+        <div id="dynamicTable">
+            Dynamic Table
+            <table id=" dynamicPTable">
+                <thead>
+                <tr>
+                    <th>Beginning Address</th>
+                    <th>Free Block Size</th>
+                </tr>
+                </thead>
+                <tbody id="tbodyDynamic"></tbody>
+            </table>
+        </div>
+    </div>
+    <div style="margin-left: 320px;">
+        <div id="snapshot">
+
+        </div>
+    </div>
+</div>
+<div id="snapshotLogs">
+    <p>Snapshot Logs</p>
+</div>
+
+
+<!-- load renderer.js last to ensure I dont call anything without it being loaded in yet.
+ Also improves page load time since it loads script at the bottom-->
+<script src="./renderer.js"></script>
+
+</body>
